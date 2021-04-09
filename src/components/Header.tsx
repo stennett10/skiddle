@@ -1,12 +1,17 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import logo from "../assets/skiddle-logo-white-landscape.png";
 import { SearchBox } from "./SearchBox";
 
 interface IHeaderProps {
-  setSearchTerm: React.Dispatch<React.SetStateAction<string>>;
+  setSearchTerm?: React.Dispatch<React.SetStateAction<string>>;
+  showSearch?: boolean;
 }
 
-export const Header: React.FC<IHeaderProps> = ({ setSearchTerm }) => {
+export const Header: React.FC<IHeaderProps> = ({
+  setSearchTerm,
+  showSearch = true,
+}) => {
   return (
     <div
       style={{
@@ -17,8 +22,16 @@ export const Header: React.FC<IHeaderProps> = ({ setSearchTerm }) => {
         justifyContent: "center",
       }}
     >
-      <img src={logo} alt="Skiddle logo in white" style={{ maxHeight: 200 }} />
-      <SearchBox setSearchTerm={setSearchTerm} />
+      <Link to="/">
+        <img
+          src={logo}
+          alt="Skiddle logo in white"
+          style={{ maxHeight: 200 }}
+        />
+      </Link>
+      {showSearch && setSearchTerm !== undefined ? (
+        <SearchBox setSearchTerm={setSearchTerm} />
+      ) : null}
     </div>
   );
 };
